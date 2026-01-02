@@ -28,11 +28,25 @@ const ThemeChanger = () => {
     );
 
   if (resolvedTheme === "dark") {
-    return <Sun onClick={() => setTheme("light")} className='' />;
+    return (
+      <button
+        onClick={() => setTheme("light")}
+        aria-label='Toggle theme light'
+        className='hover:text-amber-400 cursor-pointer'>
+        <Sun />
+      </button>
+    );
   }
 
   if (resolvedTheme === "light") {
-    return <Moon onClick={() => setTheme("dark")} />;
+    return (
+      <button
+        onClick={() => setTheme("dark")}
+        aria-label='Toggle theme dark'
+        className='hover:text-indigo-500 cursor-pointer'>
+        <Moon />
+      </button>
+    );
   }
 };
 
