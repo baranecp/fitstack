@@ -9,10 +9,10 @@ const Navbar = () => {
       <div className='max-w-7xl mx-auto px-6 py-5 flex gap-3 items-center justify-between'>
         <Logo />
         <NavItems />
-        <span className='flex gap-6'>
+        <div className='flex gap-6'>
           <ThemeChanger />
           <UserInfo />
-        </span>
+        </div>
       </div>
     </nav>
   );
