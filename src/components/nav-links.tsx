@@ -20,11 +20,11 @@ const NavLinks = ({
   return (
     <Link
       href={`/${slug}`}
-      style={{
-        fontWeight: isActive ? "bold" : "normal",
-        display: "flex",
-        gap: "0.5rem",
-      }}>
+      className={`flex gap-2 px-6 py-3 border border-transparent rounded-md ${
+        isActive
+          ? "bg-nav-active-bg text-nav-active-text"
+          : "text-nav-inactive hover:bg-nav-hover"
+      } `}>
       <Icon />
       {children}
     </Link>
