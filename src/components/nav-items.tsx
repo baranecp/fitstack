@@ -18,7 +18,7 @@ const NavItems = () => {
     { path: "profile", label: "Profile", icon: User },
   ];
   return (
-    <div className='flex gap-7'>
+    <div className='flex gap-1'>
       {navItems.map((item, idx) => (
         <div key={idx}>
           <NavLinks slug={item.path} icon={item.icon}>
