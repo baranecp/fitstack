@@ -23,7 +23,7 @@ const UserInfo = () => {
 
       <DropdownMenuContent
         align='end'
-        className='mt-1 p-0 rounded-xl  border-none'>
+        className='mt-1 p-0 border-none rounded-xl'>
         <DropdownMenuLabel className='flex items-center gap-2 p-4 bg-linear-to-r from-emerald-500 to-blue-500'>
           <Avatar className='w-11 h-11 border-white border-2'>
             <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
