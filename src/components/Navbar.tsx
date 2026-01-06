@@ -6,7 +6,7 @@ import UserInfo from "./UserInfo";
 const Navbar = () => {
   return (
     <>
-      <nav className='hiddne md:block border-b border-border'>
+      <nav className='hidden md:block border-b border-border'>
         <div className='max-w-7xl mx-auto py-5 flex gap-3 items-center justify-between'>
           <Logo />
           <NavItems />
