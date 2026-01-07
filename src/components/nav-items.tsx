@@ -20,11 +20,9 @@ const NavItems = () => {
   return (
     <div className='flex gap-1'>
       {navItems.map((item, idx) => (
-        <div key={idx}>
-          <NavLinks slug={item.path} icon={item.icon}>
-            {item.label}
-          </NavLinks>
-        </div>
+        <NavLinks key={idx} slug={item.path} icon={item.icon}>
+          {item.label}
+        </NavLinks>
       ))}
     </div>
   );

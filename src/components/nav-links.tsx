@@ -11,7 +11,7 @@ const NavLinks = ({
 }: {
   slug: string;
   icon: LucideIcon;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   const segment = useSelectedLayoutSegment();
   const isActive = slug === segment;
