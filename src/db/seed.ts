@@ -1,12 +1,37 @@
 import { config } from "dotenv";
 config({ path: ".env.local" });
-import { users, exercises, sets, workouts } from "./schema";
+import {
+  users,
+  exercises,
+  sets,
+  workouts,
+  workoutPlans,
+  workoutPlanExercises,
+} from "./schema";
 import { eq } from "drizzle-orm";
 
 async function main() {
   console.log("🌱 Starting Master Seed...");
   const { db } = await import("./index");
-  // 1. Create Exercise Catalog
+
+  // 1. Ensure User Exists (Upsert-style check)
+  console.log("...Checking User");
+  let user = await db.query.users.findFirst({
+    where: eq(users.email, "baranec.dev@gmail.com"),
+  });
+
+  if (!user) {
+    console.log("...User not found, creating user");
+    [user] = await db
+      .insert(users)
+      .values({
+        name: "Baranec Dev",
+        email: "baranec.dev@gmail.com",
+      })
+      .returning();
+  }
+
+  // 2. Create Exercise Catalog
   console.log("...Inserting Exercises");
   const exerciseData = [
     { name: "Back Squat", muscleGroup: "Legs" },
@@ -16,25 +41,15 @@ async function main() {
     { name: "Pull Up", muscleGroup: "Pull" },
   ];
 
-  // We use .onConflictDoNothing() in case you run this twice!
-  // Note: This requires a unique constraint on 'name' in schema,
-  // but for now, we will just insert.
-  const insertedExercises = await db
-    .insert(exercises)
-    .values(exerciseData)
-    .returning();
+  await db.insert(exercises).values(exerciseData).onConflictDoNothing();
 
-  // 2. Find our User
-  const user = await db.query.users.findFirst({
-    where: eq(users.email, "baranec.dev@gmail.com"),
-  });
+  // Re-fetch exercises if they weren't inserted (due to conflict)
+  const allExercises = await db.select().from(exercises);
+  const benchPress = allExercises.find((e) => e.name === "Bench Press");
+  const overheadPress = allExercises.find((e) => e.name === "Overhead Press");
 
-  if (!user) {
-    throw new Error("❌ User not found! Did you run the previous seed?");
-  }
-
-  // 3. Create a Workout (from yesterday)
-  console.log("...Logging a Workout");
+  // 3. Create a Workout History Entry (Section 2 of Schema)
+  console.log("...Logging a Past Workout");
   const [workout] = await db
     .insert(workouts)
     .values({
@@ -45,32 +60,53 @@ async function main() {
     })
     .returning();
 
-  // 4. Add Sets (Bench Press)
-  // We find the ID for "Bench Press" from our inserted list
-  const benchPress = insertedExercises.find((e) => e.name === "Bench Press");
-
   if (benchPress) {
     await db.insert(sets).values([
       {
         workoutId: workout.id,
         exerciseId: benchPress.id,
         reps: 8,
-        weight: 60, // Warmup
+        weight: 60,
         order: 1,
       },
       {
         workoutId: workout.id,
         exerciseId: benchPress.id,
         reps: 5,
-        weight: 80, // Working Set
+        weight: 80,
         order: 2,
       },
+    ]);
+  }
+
+  // 4. Create a Workout Plan Template (Section 3 of Schema)
+  console.log("...Creating Workout Plan Template");
+  const [plan] = await db
+    .insert(workoutPlans)
+    .values({
+      userId: user.id,
+      name: "Strength Starter Plan",
+      description: "A simple push-focused strength routine",
+    })
+    .returning();
+
+  if (benchPress && overheadPress) {
+    await db.insert(workoutPlanExercises).values([
       {
-        workoutId: workout.id,
+        planId: plan.id,
         exerciseId: benchPress.id,
-        reps: 5,
-        weight: 80, // Working Set
-        order: 3,
+        order: 1,
+        sets: 3,
+        reps: "5-8",
+        notes: "Focus on explosive upward movement",
+      },
+      {
+        planId: plan.id,
+        exerciseId: overheadPress.id,
+        order: 2,
+        sets: 3,
+        reps: "8-12",
+        notes: "Keep core tight",
       },
     ]);
   }
@@ -81,6 +117,6 @@ async function main() {
 main()
   .then(() => process.exit(0))
   .catch((err) => {
-    console.error(err);
+    console.error("❌ Seed failed:", err);
     process.exit(1);
   });
