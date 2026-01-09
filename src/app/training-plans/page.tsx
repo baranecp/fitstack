@@ -1,4 +1,5 @@
 import { db } from "@/db";
+import { createTrainingPlan } from "./actions";
 
 const TrainingPlans = async () => {
   const id = 1;
@@ -8,10 +9,12 @@ const TrainingPlans = async () => {
 
   return (
     <>
+      <form action={createTrainingPlan}>
+        <button type='submit'>Create New Plan</button>
+      </form>
       {workoutPlans.length === 0 ? (
         <div>
           <h3>No plans found</h3>
-          <button>Create New Plan</button>
         </div>
       ) : (
         <ul>
