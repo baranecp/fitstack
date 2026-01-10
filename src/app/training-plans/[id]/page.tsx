@@ -16,8 +16,8 @@ const TrainingPlan = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <h1>{plan?.name}</h1>
-      <p>{plan?.description}</p>
+      <h1>{plan.name}</h1>
+      <p>{plan.description}</p>
     </div>
   );
 };
