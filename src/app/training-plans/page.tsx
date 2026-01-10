@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { createTrainingPlan } from "./actions";
+import Link from "next/link";
 
 const TrainingPlans = async () => {
   const id = 1;
@@ -19,7 +20,9 @@ const TrainingPlans = async () => {
       ) : (
         <ul>
           {workoutPlans.map((workout) => (
-            <li key={workout.id}>{workout.name}</li>
+            <Link key={workout.id} href={`/training-plans/${workout.id}`}>
+              {workout.name}
+            </Link>
           ))}
         </ul>
       )}
