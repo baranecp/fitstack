@@ -1,16 +1,16 @@
-import { db } from "@/db";
+import { getWorkoutPlans } from "@/services/workout-plans";
 import { createTrainingPlan } from "./actions";
 import Link from "next/link";
 
 const TrainingPlans = async () => {
   const id = 1;
-  const workoutPlans = await db.query.workoutPlans.findMany({
-    where: (workoutPlan, { eq }) => eq(workoutPlan.userId, id),
-  });
+  const workoutPlans = await getWorkoutPlans(id);
 
   return (
     <>
       <form action={createTrainingPlan}>
+        <input type='text' name='name' />
+        <input type='text' name='description' />
         <button type='submit'>Create New Plan</button>
       </form>
       {workoutPlans.length === 0 ? (
