@@ -1,16 +1,10 @@
-import { db } from "@/db";
+import { getWorkoutPlan } from "@/services/workout-plans";
 import { notFound } from "next/navigation";
 
 const TrainingPlan = async ({ params }: { params: { id: string } }) => {
   const current_user_id = 1;
   const { id } = await params;
-  const plan = await db.query.workoutPlans.findFirst({
-    where: (workoutPlan, { and, eq }) =>
-      and(
-        eq(workoutPlan.userId, current_user_id),
-        eq(workoutPlan.id, parseInt(id))
-      ),
-  });
+  const plan = await getWorkoutPlan(parseInt(id), current_user_id);
 
   if (!plan) notFound();
 
@@ -18,6 +12,26 @@ const TrainingPlan = async ({ params }: { params: { id: string } }) => {
     <div>
       <h1>{plan.name}</h1>
       <p>{plan.description}</p>
+
+      {plan.exercises.map((planItem) => (
+        <div
+          key={planItem.exerciseId}
+          style={{
+            border: "1px solid #ccc",
+            padding: "10px",
+            marginBottom: "10px",
+          }}>
+          <h3>{planItem.exercise.name}</h3>
+          <p>
+            Target: {planItem.sets} sets x {planItem.reps}
+          </p>
+          {planItem.notes && (
+            <p>
+              <em>Note: {planItem.notes} </em>
+            </p>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
