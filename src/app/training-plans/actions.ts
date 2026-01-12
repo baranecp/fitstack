@@ -1,15 +1,12 @@
 "use server";
 
-import { db } from "@/db";
-import { workoutPlans } from "@/db/schema";
+import { createWorkoutPlan } from "@/services/workout-plans";
 import { revalidatePath } from "next/cache";
 
-export async function createTrainingPlan(formData: FormData) {
-  await db.insert(workoutPlans).values({
-    name: "New Routine",
-    userId: 1,
-    description: "New Routine description",
-  });
-
+export const createTrainingPlan = async (formData: FormData) => {
+  const workoutName = formData.get("name") as string;
+  const workoutDescription = formData.get("description") as string;
+  const userId = 1;
+  await createWorkoutPlan(userId, workoutName, workoutDescription);
   revalidatePath("/training-plans");
-}
+};
