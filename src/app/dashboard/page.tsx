@@ -1,17 +1,8 @@
-import { db } from "@/db/index";
+import { getUserWorkout } from "@/services/dashboard";
 
 const Dashboard = async () => {
   // TODO: Add Auth Check
-  const user = await db.query.users.findFirst({
-    with: {
-      workouts: {
-        orderBy: (workouts, { desc }) => [desc(workouts.date)],
-        with: {
-          sets: true,
-        },
-      },
-    },
-  });
+  const user = await getUserWorkout();
 
   const lastWorkout = user?.workouts[0];
   const volume = lastWorkout?.sets.reduce(
