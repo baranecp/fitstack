@@ -37,18 +37,14 @@ const CreatePlanForm = ({ exercises }: CreatePlanFormProps) => {
     );
   };
 
-  const handleUpdateSets = (instanceId: number, newSets: number) => {
+  const handleUpdateExercise = (
+    instanceId: number,
+    field: keyof PlanExercise,
+    value: string | number
+  ) => {
     setPlanExercises((prevItems) =>
       prevItems.map((item) =>
-        item.instanceId === instanceId ? { ...item, sets: newSets || 0 } : item
-      )
-    );
-  };
-
-  const handleUpdateReps = (instanceId: number, newReps: number) => {
-    setPlanExercises((prevItems) =>
-      prevItems.map((item) =>
-        item.instanceId === instanceId ? { ...item, reps: newReps || 0 } : item
+        item.instanceId === instanceId ? { ...item, [field]: value } : item
       )
     );
   };
@@ -58,7 +54,7 @@ const CreatePlanForm = ({ exercises }: CreatePlanFormProps) => {
       <form>
         <select
           value={selectedExerciseId}
-          onChange={(e) => setSelectedExerciseId(parseInt(e.target.value))}>
+          onChange={(e) => setSelectedExerciseId(Number(e.target.value))}>
           {exercises.map((exercise) => (
             <option key={exercise.id} value={exercise.id}>
               {exercise.name}
@@ -76,17 +72,35 @@ const CreatePlanForm = ({ exercises }: CreatePlanFormProps) => {
             <input
               value={exercise.sets}
               onChange={(e) =>
-                handleUpdateSets(exercise.instanceId, parseInt(e.target.value))
+                handleUpdateExercise(
+                  exercise.instanceId,
+                  "sets",
+                  Number(e.target.value) || 0
+                )
               }
             />
             sets x
             <input
               value={exercise.reps}
               onChange={(e) =>
-                handleUpdateReps(exercise.instanceId, parseInt(e.target.value))
+                handleUpdateExercise(
+                  exercise.instanceId,
+                  "reps",
+                  Number(e.target.value) || 0
+                )
               }
             />
-            reps
+            reps Notes:
+            <textarea
+              value={exercise.notes}
+              onChange={(e) =>
+                handleUpdateExercise(
+                  exercise.instanceId,
+                  "notes",
+                  e.target.value
+                )
+              }
+            />
             <button
               type='button'
               onClick={() => handleDelete(exercise.instanceId)}>
