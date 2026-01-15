@@ -16,11 +16,7 @@ const TrainingPlan = async ({ params }: { params: { id: string } }) => {
       {plan.exercises.map((planItem) => (
         <div
           key={planItem.exerciseId}
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-          }}>
+          className='border border-[#ccc] p-4 mb-4'>
           <h3>{planItem.exercise.name}</h3>
           <p>
             Target: {planItem.sets} sets x {planItem.reps}
