@@ -5,6 +5,9 @@ import { and, eq } from "drizzle-orm";
 export const getWorkoutPlans = async (userId: number) => {
   return db.query.workoutPlans.findMany({
     where: eq(workoutPlans.userId, userId),
+    with: {
+      exercises: true,
+    },
   });
 };
 
