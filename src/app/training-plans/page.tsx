@@ -1,5 +1,5 @@
+import WorkoutCard from "@/components/WorkoutCard";
 import { getWorkoutPlans } from "@/services/workout-plans";
-import { createTrainingPlan } from "./actions";
 import Link from "next/link";
 
 const TrainingPlans = async () => {
@@ -7,26 +7,28 @@ const TrainingPlans = async () => {
   const workoutPlans = await getWorkoutPlans(id);
 
   return (
-    <>
-      <form action={createTrainingPlan}>
-        <input type='text' name='name' />
-        <input type='text' name='description' />
-        <button type='submit'>Create New Plan</button>
-      </form>
-      {workoutPlans.length === 0 ? (
+    <div className='max-w-7xl mx-auto py-4'>
+      <div className='flex justify-between items-center my-6'>
         <div>
-          <h3>No plans found</h3>
+          <h1 className='text-3xl'>Training Plans</h1>
+          <p className='mt-4'>Create and manage your workout routines</p>
         </div>
+        <Link
+          href='/training-plans/create'
+          className='bg-primary text-white px-5 py-4 rounded-2xl'>
+          + New Plan
+        </Link>
+      </div>
+      {workoutPlans.length === 0 ? (
+        <p>No plans found</p>
       ) : (
-        <ul>
+        <ul className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {workoutPlans.map((workout) => (
-            <Link key={workout.id} href={`/training-plans/${workout.id}`}>
-              {workout.name}
-            </Link>
+            <WorkoutCard key={workout.id} workout={workout} />
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 };
 
