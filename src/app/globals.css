@@ -75,7 +75,7 @@
     --btn-primary-text: var(--primary-foreground);
 
     --btn-secondary-bg: var(--muted);
-    --btn-secondary-bg-hover: oklch(0.32 0 0);
+    --btn-secondary-bg-hover: oklch(27.8% 0.033 256.848);
     --btn-secondary-text: var(--foreground);
 
     --btn-ghost-bg-hover: var(--nav-hover);
