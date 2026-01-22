@@ -24,11 +24,10 @@ export const getWorkoutPlan = async (planId: number, userId: number) => {
   });
 };
 
-export const createWorkoutPlanWithExercises = async (
+export const createWorkoutPlan = async (
   userId: number,
   name: string,
   description: string,
-  exercises: { id: number; sets: number; reps: string; notes: string }[]
 ) => {
   return await db.transaction(async (tx) => {
     const [plan] = await tx
@@ -38,19 +37,11 @@ export const createWorkoutPlanWithExercises = async (
         name,
         description,
       })
-      .returning({ id: workoutPlans.id });
-
-    const mappedExercises = exercises.map((exercise) => ({
-      planId: plan.id,
-      exerciseId: exercise.id,
-      sets: exercise.sets,
-      reps: exercise.reps.toString(),
-      notes: exercise.notes,
-    }));
-
-    if (mappedExercises.length > 0) {
-      await tx.insert(workoutPlanExercises).values(mappedExercises);
-    }
+      .returning({
+        id: workoutPlans.id,
+        name: workoutPlans.name,
+        description: workoutPlans.description,
+      });
 
     return plan;
   });
