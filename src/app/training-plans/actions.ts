@@ -1,30 +1,38 @@
 "use server";
 
-import { createWorkoutPlanWithExercises } from "@/services/workout-plans";
-import { revalidatePath } from "next/cache";
+import { createWorkoutPlan } from "@/services/workout-plans";
+import { redirect } from "next/navigation";
 
-export const createTrainingPlan = async (formData: FormData) => {
+export type TrainingPlanState = {
+  errors?: {
+    name?: string;
+    description?: string;
+  };
+  message?: string;
+};
+
+export const createTrainingPlan = async (
+  prevState: TrainingPlanState,
+  formData: FormData,
+) => {
   const workoutName = formData.get("name") as string;
   const workoutDescription = formData.get("description") as string;
   const userId = 1;
-  const exercises = [];
-  let index = 0;
 
-  while (formData.has(`exercises[${index}][id]`)) {
-    exercises.push({
-      id: Number(formData.get(`exercises[${index}][id]`)),
-      sets: Number(formData.get(`exercises[${index}][sets]`)),
-      reps: formData.get(`exercises[${index}][reps]`) as string,
-      notes: formData.get(`exercises[${index}][notes]`) as string,
-    });
-    index++;
+  const state: TrainingPlanState = {
+    errors: {},
+  };
+
+  if (workoutName.trim() === "" && state.errors)
+    state.errors.name = "The name cannot be empty!";
+
+  if (workoutDescription.trim() === "" && state.errors)
+    state.errors.description = "The description cannot be empty!";
+
+  if (state.errors && Object.keys(state.errors).length > 0) {
+    return state;
   }
 
-  await createWorkoutPlanWithExercises(
-    userId,
-    workoutName,
-    workoutDescription,
-    exercises
-  );
-  revalidatePath("/training-plans");
+  const plan = await createWorkoutPlan(userId, workoutName, workoutDescription);
+  redirect(`/training-plans/${plan.id}`);
 };
