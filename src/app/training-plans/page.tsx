@@ -1,6 +1,6 @@
+import { CreatePlanModal } from "@/components/CreatePlanModal";
 import WorkoutCard from "@/components/WorkoutCard";
 import { getWorkoutPlans } from "@/services/workout-plans";
-import Link from "next/link";
 
 const TrainingPlans = async () => {
   const id = 1;
@@ -13,11 +13,7 @@ const TrainingPlans = async () => {
           <h1 className='text-3xl'>Training Plans</h1>
           <p className='mt-4'>Create and manage your workout routines</p>
         </div>
-        <Link
-          href='/training-plans/create'
-          className='bg-primary text-white px-5 py-4 rounded-2xl'>
-          + New Plan
-        </Link>
+        <CreatePlanModal />
       </div>
       {workoutPlans.length === 0 ? (
         <p>No plans found</p>
