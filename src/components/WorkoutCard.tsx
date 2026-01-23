@@ -4,11 +4,21 @@ import { Trash2, Dumbbell } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
+type WorkoutExercise = {
+  id: number;
+  order: number;
+  sets: number;
+  exerciseId: number;
+  reps: string;
+  planId: number;
+  notes: string | null;
+};
+
 type Workout = {
   id: number;
   name: string;
   description: string | null;
-  exercises: [];
+  exercises: WorkoutExercise[];
   createdAt?: Date | null;
 };
 
