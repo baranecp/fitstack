@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { workoutPlanExercises, workoutPlans } from "@/db/schema";
+import { workoutPlans } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 
 export const getWorkoutPlans = async (userId: number) => {
@@ -29,20 +29,18 @@ export const createWorkoutPlan = async (
   name: string,
   description: string,
 ) => {
-  return await db.transaction(async (tx) => {
-    const [plan] = await tx
-      .insert(workoutPlans)
-      .values({
-        userId,
-        name,
-        description,
-      })
-      .returning({
-        id: workoutPlans.id,
-        name: workoutPlans.name,
-        description: workoutPlans.description,
-      });
+  const [plan] = await db
+    .insert(workoutPlans)
+    .values({
+      userId,
+      name,
+      description,
+    })
+    .returning({
+      id: workoutPlans.id,
+      name: workoutPlans.name,
+      description: workoutPlans.description,
+    });
 
-    return plan;
-  });
+  return plan;
 };
