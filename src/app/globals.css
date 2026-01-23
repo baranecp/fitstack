@@ -5,7 +5,7 @@
   :root {
     /* --- Base (Light Mode) --- */
     --background: oklch(98.511% 0.00011 271.152);
-    --foreground: oklch(21% 0.034 264.665);
+    --foreground: oklch(20.992% 0.03416 263.451);
 
     /* Primary Emerald*/
     --primary: oklch(0.696 0.17 149.2);
@@ -24,11 +24,11 @@
     /* Button variants */
     --btn-primary-bg: var(--primary);
     --btn-primary-bg-hover: oklch(0.63 0.17 149.2);
-    --btn-primary-text: var(--primary-foreground);
+    --btn-primary-text: oklch(1 0 0);
 
     --btn-secondary-bg: var(--muted);
     --btn-secondary-bg-hover: oklch(0.9 0.01 264);
-    --btn-secondary-text: var(--foreground);
+    --btn-secondary-text: oklch(37.3% 0.034 259.733);
 
     --btn-ghost-bg-hover: var(--nav-hover);
     --btn-ghost-text: var(--foreground);
@@ -41,10 +41,19 @@
     --btn-destructive-bg-hover: oklch(0.95 0.04 27);
     --btn-destructive-text: oklch(0.55 0.22 27);
 
+    /*ICONS*/
+    --bg-icon-workout: oklch(95% 0.052 163.051);
+    --icon-workout: oklch(59.6% 0.145 163.225);
+
     /* Borders (rgba(0,0,0,0.1) -> ~Gray 200) */
     --border: oklch(0.922 0 0);
-    --input: oklch(0.96 0 0);
     --ring: oklch(0.696 0.17 149.2);
+
+    --border-card: oklch(92.8% 0.006 264.531);
+    --border-card-hover: oklch(69.6% 0.17 162.48);
+
+    /*Text*/
+    --text-card: oklch(21% 0.034 264.665);
 
     /* FF */
     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -72,11 +81,11 @@
     /* Button variants (dark) */
     --btn-primary-bg: var(--primary);
     --btn-primary-bg-hover: var(--ring);
-    --btn-primary-text: var(--primary-foreground);
+    --btn-primary-text: oklch(1 0 0);
 
     --btn-secondary-bg: var(--muted);
     --btn-secondary-bg-hover: oklch(27.8% 0.033 256.848);
-    --btn-secondary-text: var(--foreground);
+    --btn-secondary-text: oklch(87.2% 0.01 258.338);
 
     --btn-ghost-bg-hover: var(--nav-hover);
     --btn-ghost-text: var(--foreground);
@@ -89,10 +98,19 @@
     --btn-destructive-bg-hover: oklch(0.3 0.12 27);
     --btn-destructive-text: oklch(0.72 0.18 27);
 
+    /*ICONS*/
+    --bg-icon-workout: oklch(37.8% 0.077 168.94);
+    --icon-workout: oklch(76.5% 0.177 163.223);
+
     /* Borders & Inputs */
     --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
     --ring: #059669;
+
+    --border-card: oklch(27.8% 0.033 256.848);
+    --border-card-hover: oklch(69.6% 0.17 162.48);
+
+    /*Text*/
+    --text-card: oklch(87.2% 0.01 258.338);
   }
 }
 
@@ -108,7 +126,6 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --color-input: var(--input);
   --color-ring: var(--ring);
 
   /* Button */
@@ -131,6 +148,16 @@
   --color-btn-destructive-bg-hover: var(--btn-destructive-bg-hover);
   --color-btn-destructive-text: var(--btn-destructive-text);
 
-  /* FF */
+  /*ICONS*/
+  --color-bg-icon-workout: var(--bg-icon-workout);
+  --color-icon-workout: var(--icon-workout);
   --font-sans: var(--font-sans);
+
+  /*Borders*/
+  --color-border-card: var(--border-card);
+  --color-border-card-hover: var(--border-card-hover);
+
+  /*Text*/
+  /*Card Text*/
+  --color-card-text: var(--text-card);
 }
