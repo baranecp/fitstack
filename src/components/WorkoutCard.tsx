@@ -1,7 +1,8 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { Trash2, Dumbbell } from "lucide-react";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 type Workout = {
   id: number;
@@ -15,16 +16,21 @@ export const WorkoutCard = ({ workout }: { workout: Workout }) => {
   return (
     <li
       key={workout.id}
-      className='group relative p-6 border rounded-xl hover:shadow-md transition-all'>
-      <h3 className='text-lg font-bold'>
-        <Link
-          href={`/training-plans/${workout.id}`}
-          className='focus:outline-none'>
-          <span className='absolute inset-0' aria-hidden='true' />
-          {workout.name}
-        </Link>
-      </h3>
-      <p>{workout.description}</p>
+      className='group relative flex flex-col gap-4 p-6 border rounded-xl border-border-card hover:border-border-card-hover hover:shadow-md transition-all'>
+      <div className='flex justify-center items-center p-2 w-12 h-12 rounded-xl bg-bg-icon-workout '>
+        <Dumbbell size={24} className='text-icon-workout' />
+      </div>
+      <div>
+        <h3 className='text-lg font-bold text-card-text mb-2'>
+          <Link
+            href={`/training-plans/${workout.id}`}
+            className='focus:outline-none'>
+            <span className='absolute inset-0' aria-hidden='true' />
+            {workout.name}
+          </Link>
+        </h3>
+        <p className='text-card-text/90'>{workout.description}</p>
+      </div>
       <div className='flex justify-between mt-4 text-sm text-gray-400'>
         <p>
           {workout.exercises.length === 0
@@ -33,11 +39,12 @@ export const WorkoutCard = ({ workout }: { workout: Workout }) => {
         </p>
         <p>{workout.createdAt?.toDateString()}</p>
       </div>
-      <button
-        className='absolute top-4 right-4 z-10 p-2  text-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-50'
+      <Button
+        variant='destructive'
+        className='absolute top-6 right-4 z-10 p-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity'
         aria-label='Remove workout'>
-        <Trash2 />
-      </button>
+        <Trash2 size={20} />
+      </Button>
     </li>
   );
 };
