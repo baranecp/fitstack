@@ -1,51 +1,31 @@
 "use client";
-import { createTrainingPlan } from "@/app/training-plans/actions";
-import { useActionState, useRef } from "react";
+
+import { useRef, useState } from "react";
+import { CreatePlanForm } from "./CreatePlanForm";
 
 export const CreatePlanModal = () => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
-  const [state, formAction, isPending] = useActionState(createTrainingPlan, {});
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <button
         className='bg-primary text-white px-5 py-4 rounded-2xl'
-        onClick={() => dialogRef.current?.showModal()}>
+        onClick={() => {
+          dialogRef.current?.showModal();
+          setIsOpen(!isOpen);
+        }}>
         + New Plan
       </button>
       <dialog
-        onClick={(e) =>
-          e.target === e.currentTarget && dialogRef.current?.close()
-        }
-        onClose={(e) => e.currentTarget.querySelector("form")?.reset()}
+        onClose={(e) => {
+          e.currentTarget.querySelector("form")?.reset();
+          setIsOpen(false);
+        }}
         ref={dialogRef}
-        className='backdrop:bg-black/75'>
-        <h3>Create Training Plan</h3>
-        <form action={formAction}>
-          <div>
-            <label htmlFor='name'>Plan Name</label>
-            <input
-              type='text'
-              name='name'
-              placeholder='e.g., Upper Body Strength'
-            />
-            {state.errors?.name && <p>{state.errors.name}</p>}
-          </div>
-          <div>
-            <label htmlFor='description'>Description</label>
-            <input
-              type='text'
-              name='description'
-              placeholder="Whats's the focus of this plan?"
-            />
-            {state.errors?.description && <p>{state.errors.description}</p>}
-          </div>
-          <button type='submit' disabled={isPending}>
-            {isPending ? "Loading..." : "Create Plan"}
-          </button>
-          <button onClick={() => dialogRef.current?.close()} type='button'>
-            Cancel
-          </button>
-        </form>
+        className='backdrop:bg-black/75 border border-none rounded-2xl p-6 bg-background  max-w-md w-full absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2'>
+        <h2 className='mb-4'>Create Training Plan</h2>
+        {isOpen && <CreatePlanForm ref={dialogRef} />}
       </dialog>
     </>
   );
