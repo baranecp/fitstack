@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { CreatePlanForm } from "./CreatePlanForm";
+import { Button } from "./ui/button/button";
 
 export const CreatePlanModal = () => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -9,14 +10,14 @@ export const CreatePlanModal = () => {
 
   return (
     <>
-      <button
-        className='bg-primary text-white px-5 py-4 rounded-2xl'
+      <Button
+        className='px-5 py-4 rounded-2xl'
         onClick={() => {
           dialogRef.current?.showModal();
           setIsOpen(!isOpen);
         }}>
         + New Plan
-      </button>
+      </Button>
       <dialog
         onClose={(e) => {
           e.currentTarget.querySelector("form")?.reset();
