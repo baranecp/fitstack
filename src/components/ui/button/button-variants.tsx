@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2  disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -16,9 +16,9 @@ export const buttonVariants = cva(
           "hover:bg-btn-destructive-bg-hover text-btn-destructive-text",
       },
       size: {
-        sm: "h-8 px-3 text-xs",
-        default: "h-10 px-4 py-2",
-        lg: "h-12 px-8 text-lg",
+        sm: "px-3 text-xs",
+        default: "px-6 py-3",
+        lg: " px-8 text-lg",
         icon: "h-10 w-10",
       },
     },
@@ -26,5 +26,5 @@ export const buttonVariants = cva(
       variant: "primary",
       size: "default",
     },
-  }
+  },
 );
