@@ -11,7 +11,7 @@ export const buttonVariants = cva(
           "bg-btn-secondary-bg text-btn-secondary-text hover:bg-btn-secondary-bg-hover",
         ghost: "bg-transparent hover:bg-btn-ghost-bg-hover text-btn-ghost-text",
         dashed:
-          "border border-dashed bg-btn-dashed-bg hover:bg-btn-dashed-bg-hover border-btn-dashed-border hover:border-btn-dashed-border-hover",
+          "border-2 border-dashed bg-btn-dashed-bg hover:bg-btn-dashed-bg-hover border-btn-dashed-border hover:border-btn-dashed-border-hover text-btn-dashed-text",
         destructive:
           "hover:bg-btn-destructive-bg-hover text-btn-destructive-text",
       },

@@ -35,8 +35,9 @@
 
     --btn-dashed-bg: var(--muted);
     --btn-dashed-bg-hover: oklch(0.95 0.03 166);
-    --btn-dashed-border: var(--border);
+    --btn-dashed-border: oklch(87.2% 0.01 258.338);
     --btn-dashed-border-hover: var(--primary);
+    --btn-dashed-text: oklch(44.6% 0.03 256.802);
 
     --btn-destructive-bg-hover: oklch(0.95 0.04 27);
     --btn-destructive-text: oklch(0.55 0.22 27);
@@ -92,8 +93,9 @@
 
     --btn-dashed-bg: var(--muted);
     --btn-dashed-bg-hover: oklch(0.26 0.06 172);
-    --btn-dashed-border: var(--border);
+    --btn-dashed-border: oklch(37.3% 0.034 259.733);
     --btn-dashed-border-hover: var(--primary);
+    --btn-dashed-text: oklch(70.7% 0.022 261.325);
 
     --btn-destructive-bg-hover: oklch(0.3 0.12 27);
     --btn-destructive-text: oklch(0.72 0.18 27);
@@ -144,6 +146,7 @@
   --color-btn-dashed-bg-hover: var(--btn-dashed-bg-hover);
   --color-btn-dashed-border: var(--btn-dashed-border);
   --color-btn-dashed-border-hover: var(--btn-dashed-border-hover);
+  --color-btn-dashed-text: var(--btn-dashed-text);
 
   --color-btn-destructive-bg-hover: var(--btn-destructive-bg-hover);
   --color-btn-destructive-text: var(--btn-destructive-text);
