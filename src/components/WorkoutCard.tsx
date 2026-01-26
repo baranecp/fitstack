@@ -41,18 +41,28 @@ export const WorkoutCard = ({ workout }: { workout: Workout }) => {
         </h3>
         <p className='text-card-text/90'>{workout.description}</p>
       </div>
-      <div className='flex justify-between mt-4 text-sm text-gray-400'>
-        <p>
-          {workout.exercises.length === 0
-            ? "No exercises yet"
-            : `${workout.exercises.length} exercises`}
-        </p>
-        <p>{workout.createdAt?.toDateString()}</p>
-      </div>
+      <dl className='flex justify-between mt-4 text-sm text-gray-400'>
+        <div>
+          <dt className='sr-only'>Number of exercises</dt>
+          <dd>
+            {workout.exercises.length === 0
+              ? "No exercises yet"
+              : `${workout.exercises.length} exercises`}
+          </dd>
+        </div>
+        <div>
+          <dt className='sr-only'>Created at</dt>
+          <dd>
+            {workout.createdAt?.toLocaleDateString(undefined, {
+              dateStyle: "medium",
+            })}
+          </dd>
+        </div>
+      </dl>
       <Button
         variant='destructive'
         className='absolute top-6 right-4 z-10 p-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity'
-        aria-label='Remove workout'>
+        aria-label={`Remove workout ${workout.name}`}>
         <Trash2 size={20} />
       </Button>
     </li>
