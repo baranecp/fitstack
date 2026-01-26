@@ -28,7 +28,7 @@ export const WorkoutCard = ({ workout }: { workout: Workout }) => {
       key={workout.id}
       className='group relative flex flex-col gap-4 p-6 border rounded-xl border-border-card hover:border-border-card-hover hover:shadow-md transition-all'>
       <div className='flex justify-center items-center p-2 w-12 h-12 rounded-xl bg-bg-icon-workout '>
-        <Dumbbell size={24} className='text-icon-workout' />
+        <Dumbbell size={24} className='text-icon-workout' aria-hidden />
       </div>
       <div>
         <h3 className='text-lg font-bold text-card-text mb-2'>
