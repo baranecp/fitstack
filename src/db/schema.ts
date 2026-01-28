@@ -80,6 +80,7 @@ export const workoutPlanExercises = pgTable("workout_plan_exercises", {
   order: integer("order").notNull().default(0),
   sets: integer("sets").notNull().default(3), // Target sets
   reps: text("reps").notNull().default("8-12"), // Target range (Text allows ranges)
+  weight: text("weight").notNull().default(""),
   notes: text("notes"),
 });
 
@@ -116,7 +117,7 @@ export const workoutPlansRelations = relations(
   ({ one, many }) => ({
     user: one(users, { fields: [workoutPlans.userId], references: [users.id] }),
     exercises: many(workoutPlanExercises),
-  })
+  }),
 );
 
 export const workoutPlanExercisesRelations = relations(
@@ -131,5 +132,5 @@ export const workoutPlanExercisesRelations = relations(
       fields: [workoutPlanExercises.exerciseId],
       references: [exercises.id],
     }),
-  })
+  }),
 );
